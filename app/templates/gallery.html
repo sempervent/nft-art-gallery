@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - Decentralized Art Gallery{% endblock %}
+
+{% block content %}
+    <h1>Art Gallery</h1>
+    <div id="art-list">
+        <!-- Dynamic content will be populated here -->
+        {% for art in arts %}
+        <div class="art-item">
+            <h2>{{ art.title }}</h2>
+            <img src="{{ art.image_url }}" alt="{{ art.title }}">
+            <p>{{ art.description }}</p>
+            <p><b>Price:</b> {{ art.price }} ETH</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

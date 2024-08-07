@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "nft-art-gallery"
+version = "0.1.0"
+description = ""
+authors = ["sempervent <jngrant9+git@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.112.0"
+uvicorn = "^0.30.5"
+flask = "^3.0.3"
+web3 = "^6.20.1"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.6"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

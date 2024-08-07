@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+    depends_on:
+      - ganache
+  ganache:
+    image: trufflesuite/ganache-cli
+    command: ganache-cli -h 0.0.0.0
+    ports:
+      - "8545:8545"
+  truffle:
+    image: trufflesuite/truffle
+    volumes:
+      - ./truffle:/app  # Map the Truffle project directory here
+    working_dir: /app
+    command: truffle migrate --network development
+    depends_on:
+      - ganache

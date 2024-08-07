@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+
+contract ArtGallery is ERC721Enumerable {
+    struct Art {
+        uint256 id;
+        string title;
+        string description;
+        string imageURL;
+        uint256 price;
+    }
+
+    Art[] public arts;
+
+    constructor() ERC721("ArtGallery", "ART") {}
+
+    function mintArt(string memory _title, string memory _description, string memory _imageURL, uint256 _price) public {
+        uint256 _id = arts.length;
+        arts.push(Art(_id, _title, _description, _imageURL, _price));
+        _mint(msg.sender, _id);
+    }
+
+    function getAllArt() public view returns (Art[] memory) {
+        return arts;
+    }
+}
