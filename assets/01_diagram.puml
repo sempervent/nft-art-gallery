@@ -1,0 +1,41 @@
+@startuml
+
+skinparam rectangle {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+skinparam database {
+    BackgroundColor GoldenRod
+    BorderColor DarkSlateGray
+}
+
+skinparam participant {
+    BackgroundColor Wheat
+    BorderColor DarkSlateGray
+}
+
+' Components
+participant "User" as user
+participant "FastAPI Server" as fastapi
+database "Ethereum Blockchain" as blockchain
+participant "Ganache (local blockchain)" as ganache
+participant "Truffle Suite" as truffle
+participant "Solidity Smart Contract\n(ArtGallery)" as contract
+
+' Workflow
+user -> fastapi : Submit Art Details\n(POST /art)
+fastapi -> fastapi : Validate Art Details
+fastapi -> contract : Calls mintArt\n(Title, Description, Image URL, Price)
+contract -> blockchain : Mint NFT
+blockchain -> contract : Confirm Transaction\nReturn Transaction Receipt
+contract -> fastapi : Return Transaction Details
+fastapi -> user : Return Success Message\nand Transaction Receipt
+
+' Additional Interactions for Setup
+truffle -> ganache : Deploy Contracts
+ganache -> contract : Deploy ArtGallery Contract
+truffle -> blockchain : Integrate with Actual Blockchain
+contract -> blockchain : Contract Interaction\n(GetAllArt, MintArt, etc.)
+
+@enduml
