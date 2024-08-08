@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from blockchain.contracts import BlockchainInterface
-from models.art import Art
+from models.schemas import Art
 
 app = FastAPI()
 
@@ -32,8 +32,13 @@ async def add_art(art: Art):
             title=art.title,
             description=art.description,
             image_url=art.image_url,
-            price=int(art.price * 1e18)  # Convert Ether to Wei, assuming price is passed in Ether
+            price=int(
+                art.price * 1e18
+            ),  # Convert Ether to Wei, assuming price is passed in Ether
         )
-        return {"message": "Art registered successfully!", "transaction_receipt": receipt}
+        return {
+            "message": "Art registered successfully!",
+            "transaction_receipt": receipt,
+        }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) from e

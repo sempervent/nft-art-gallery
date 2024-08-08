@@ -15,15 +15,23 @@ class BlockchainInterface:
     def mint_art(self, title, description, image_url, price):
         # This method should handle minting new art on the blockchain
         # For simplicity, we're assuming the function exists in your Solidity contract
-        account = self.w3.eth.account.privateKeyToAccount(PRIVATE_KEY)  # Ensure the private key is securely managed
+        account = self.w3.eth.account.privateKeyToAccount(
+            PRIVATE_KEY
+        )  # Ensure the private key is securely managed
         nonce = self.w3.eth.getTransactionCount(account.address)
-        transaction = self.contract.functions.mintArt(title, description, image_url, price).buildTransaction({
-            'chainId': 1,  # Make sure to use the correct chain ID
-            'gas': 2000000,
-            'gasPrice': self.w3.toWei('10', 'gwei'),
-            'nonce': nonce,
-        })
-        signed_txn = self.w3.eth.account.signTransaction(transaction, private_key=account.privateKey)
+        transaction = self.contract.functions.mintArt(
+            title, description, image_url, price
+        ).buildTransaction(
+            {
+                "chainId": 1,  # Make sure to use the correct chain ID
+                "gas": 2000000,
+                "gasPrice": self.w3.toWei("10", "gwei"),
+                "nonce": nonce,
+            }
+        )
+        signed_txn = self.w3.eth.account.signTransaction(
+            transaction, private_key=account.privateKey
+        )
         return self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 
 

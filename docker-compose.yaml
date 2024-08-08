@@ -24,3 +24,11 @@ services:
     command: truffle migrate --network development
     depends_on:
       - ganache
+  db:
+    image: postgres:16-alpine3.20
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: nftgallery
+      POSTGRES_USER: nftuser
+      POSTGRES_PASSWORD: password
